@@ -37,7 +37,7 @@ import android.os.Build;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Random;
+import java.security.SecureRandom;
 
 import de.appplant.cordova.plugin.localnotification.action.Action;
 import de.appplant.cordova.plugin.localnotification.util.AssetUtil;
@@ -59,7 +59,7 @@ public final class Builder {
     private final Options options;
 
     // To generate unique request codes
-    private final Random random = new Random();
+    private final SecureRandom secureRandom = new SecureRandom();
 
     // Receiver to handle the clear event
     private Class<?> clearReceiver;
@@ -317,7 +317,7 @@ public final class Builder {
             intent.putExtras(extras);
         }
 
-        int reqCode = random.nextInt();
+        int reqCode = secureRandom.nextInt();
 
         builder.setDeleteIntent(PendingIntent.getBroadcast(
             context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT));
@@ -340,7 +340,7 @@ public final class Builder {
             intent.putExtras(extras);
         }
 
-        int reqCode = random.nextInt();
+        int reqCode = secureRandom.nextInt();
         
         builder.setContentIntent(PendingIntent.getActivity(
             context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT));
@@ -388,7 +388,7 @@ public final class Builder {
             intent.putExtras(extras);
         }
 
-        int reqCode = random.nextInt();
+        int reqCode = secureRandom.nextInt();
 
         return PendingIntent.getActivity(context, reqCode, intent, PendingIntent.FLAG_IMMUTABLE | FLAG_UPDATE_CURRENT);
     }
